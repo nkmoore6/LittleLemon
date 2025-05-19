@@ -1,14 +1,10 @@
-from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
+from django.urls import path
 from . import views
-from rest_framework.routers import DefaultRouter
-
-router = DefaultRouter()
-router.register(r'menu', views.MenuViewSet)
-router.register(r'tables', views.BookingViewSet)
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('Menu/', views.Menu, name='Menu'),
-    path('Menu/', views.MenuItemsView.as_view()),
-    path('Menu/<int:pk>', views.SingleMenuItemView.as_view()),
+    path('menu/items/', views.MenuItemsView.as_view(), name='menu-items'),
+    path('menu/items/<int:pk>/', views.SingleMenuItemView.as_view(), name='single-menu-item'),
+    path('api-token-auth/', obtain_auth_token),
 ]
